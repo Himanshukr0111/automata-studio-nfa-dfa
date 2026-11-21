@@ -1,0 +1,5 @@
+// Core Automata Theory algorithmic logic:
+// - nfa.js (NFA data structure & validation)
+// - subsetConstruction.js (Epsilon closure & subset construction algorithm)
+// - dfa.js (DFA representation & minimization)
+// - simulator.js (String execution simulator)
