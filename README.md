@@ -4,7 +4,7 @@
 [![Vite](https://img.shields.io/badge/Vite-6.1-646cff.svg?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8.svg?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![React Flow](https://img.shields.io/badge/@xyflow/react-12.3-ff0072.svg)](https://reactflow.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Automata Studio** is an interactive, educational simulator designed for computer science students and educators studying **Automata Theory & Computability**. The application enables users to design custom **Non-deterministic Finite Automata (NFA)**, convert them into equivalent **Deterministic Finite Automata (DFA)** using the canonical **Subset Construction (Powerset Construction)** algorithm, interactively visualize state diagrams via **React Flow**, follow a step-by-step conversion walkthrough, and simulate input string acceptance or rejection with live trajectory tracing.
 
@@ -95,6 +95,25 @@
 
 ---
 
+## 📸 Application Screenshots
+
+> **Note**: Application screenshots can be viewed in the [`screenshots/`](screenshots/) directory. To display live previews in this section, capture full-resolution screenshots from your browser and place them in the `screenshots/` directory using the canonical filenames below:
+
+| UI Module | Visual Description | Canonical File Path |
+| :--- | :--- | :--- |
+| **NFA Builder** | Custom 5-tuple input forms ($Q, \Sigma, q_0, F$), transition relation editor, and dynamic NFA matrix | `screenshots/nfa-builder.png` |
+| **DFA Converter** | Generated deterministic states, subset transition matrix, and JSON inspector | `screenshots/dfa-converter.png` |
+| **Graph Visualizer** | Interactive React Flow dual and side-by-side automata state diagrams | `screenshots/graph-visualizer.png` |
+| **Step-by-Step Player** | Interactive pedagogical conversion walkthrough with live union formula tracing | `screenshots/step-player.png` |
+| **String Simulator** | Symbol-by-symbol tape ribbon visualizer, execution trace table, and verdict banner | `screenshots/string-simulator.png` |
+
+#### How to Add Screenshots:
+1. Start the local development server: `npm run dev`.
+2. Open `http://localhost:3000` in your browser.
+3. Capture clear screenshots of each tab and save them into the `screenshots/` directory matching the names listed above.
+
+---
+
 ## 🗂 Project Folder Structure
 
 ```text
@@ -104,7 +123,12 @@ automata-studio-nfa-dfa/
 ├── postcss.config.js            # PostCSS configuration for Tailwind CSS
 ├── tailwind.config.js           # Tailwind theme configuration
 ├── vite.config.js               # Vite configuration (port 3000)
+├── LICENSE                      # Official MIT License file
 ├── README.md                    # Comprehensive project documentation
+├── screenshots/                 # Application UI screenshots directory
+│   └── README.md                # Screenshot placement instructions
+├── tests/                       # Automated test suites
+│   └── verify-automata.js       # 6-suite, 34-assertion automata verification runner
 └── src/
     ├── main.jsx                 # React root mount & CSS stylesheets
     ├── index.css                # Tailwind directives & typography layers
@@ -170,7 +194,13 @@ npm run dev
 ```
 Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
-### 4. Build for Production
+### 4. Run Automated Test Suite
+```bash
+npm test
+```
+Executes all 6 validation suites and 34 assertions verifying algorithm correctness, powerset generation, $\epsilon$-closures, trap states, and string acceptance.
+
+### 5. Build for Production
 ```bash
 npm run build
 ```
@@ -203,15 +233,16 @@ $$\delta_D: Q_D \times \Sigma \to Q_D$$
 
 ## 🧪 Verification & QA Testing Summary
 
-Automated testing was executed across 6 distinct automata architectures:
-- **Test Suite 1 (Standard Textbook NFA)**: Verified 3 states ($A, B, C$), initial state $A$, final state $C$, and transitions matching manual derivations.
+Automated testing is integrated and runnable via `npm test` (`tests/verify-automata.js`). The suite systematically executes across 6 distinct automata architectures:
+- **Test Suite 1 (Standard Textbook NFA)**: Verified 3 states ($A, B, C$), initial state $A$, final state $C$, transitions matching manual derivations, and string acceptance (`01` accepted, `11` rejected).
 - **Test Suite 2 (NFA with $\epsilon$-Transitions)**: Verified start state $\epsilon$-closure inclusion and string acceptance through $\epsilon$-paths.
 - **Test Suite 3 (Dead / Trap States)**: Verified that non-total NFAs correctly generate and loop in the Dead state ($Dead = \emptyset$).
-- **Test Suite 4 (Unreachable States)**: Verified that unreachable orphan states are omitted from the DFA.
-- **Test Suite 5 (Single-State NFA)**: Verified 1-state DFA loops and empty string acceptance.
-- **Test Suite 6 (3-Symbol Alphabet $\{a, b, c\}$)**: Verified multi-symbol handling and graph rendering.
-- **Total Automated Tests Executed**: **34 / 34 PASSED (100%)**.
-- **Production Build**: `vite build` completed with **0 errors**.
+- **Test Suite 4 (Unreachable States)**: Verified that unreachable orphan states are omitted from the generated DFA powerset.
+- **Test Suite 5 (Single-State NFA)**: Verified 1-state DFA loops and empty string ($\epsilon$) acceptance.
+- **Test Suite 6 (3-Symbol Alphabet $\{a, b, c\}$)**: Verified multi-symbol handling and string simulation.
+- **Verification Command**: `npm test`
+- **Total Automated Invariants Verified**: **34 / 34 PASSED (100%)**.
+- **Production Build**: `npm run build` completed with **0 errors**.
 
 ---
 
